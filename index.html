@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>SplitRide</title>
+    <link rel="preconnect" href="https://unpkg.com" />
+    <link
+      href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar glass">
+        <div class="brand-wrap">
+          <span class="brand-dot"></span>
+          <div>
+            <h1>SplitRide</h1>
+            <p>Shared rides, smarter fares</p>
+          </div>
+        </div>
+        <div class="mode-toggle" role="tablist" aria-label="App mode">
+          <button id="passengerModeBtn" class="mode-btn active" role="tab" aria-selected="true">
+            Passenger
+          </button>
+          <button id="driverModeBtn" class="mode-btn" role="tab" aria-selected="false">
+            Driver
+          </button>
+        </div>
+      </header>
+
+      <main class="content">
+        <section class="panel glass" id="controlPanel">
+          <div class="section-header">
+            <h2 id="panelTitle">Passenger Dashboard</h2>
+            <span class="status-pill" id="connectionStatus">Live</span>
+          </div>
+
+          <div id="passengerControls" class="controls active">
+            <label class="field">
+              <span>Pickup location</span>
+              <input id="pickupInput" type="text" placeholder="e.g. İçərişəhər" />
+              <ul id="pickupSuggestions" class="suggestions"></ul>
+            </label>
+            <label class="field">
+              <span>Destination</span>
+              <input id="destinationInput" type="text" placeholder="e.g. 28 May" />
+              <ul id="destinationSuggestions" class="suggestions"></ul>
+            </label>
+            <button id="matchRideBtn" class="cta">Find Shared Ride</button>
+
+            <div class="stats-grid">
+              <article class="stat-card">
+                <p class="stat-label">Matched riders</p>
+                <p class="stat-value" id="matchedRiders">0</p>
+              </article>
+              <article class="stat-card">
+                <p class="stat-label">Total fare</p>
+                <p class="stat-value" id="totalFare">$0.00</p>
+              </article>
+              <article class="stat-card accent">
+                <p class="stat-label">Your split</p>
+                <p class="stat-value" id="splitFare">$0.00</p>
+              </article>
+            </div>
+            <div class="fare-breakdown glass-soft" id="passengerFareBreakdown">
+              Qiymət detalları ride yaradıldıqdan sonra görünəcək.
+            </div>
+          </div>
+
+          <div id="driverControls" class="controls">
+            <h3>Incoming Requests</h3>
+            <ul id="requestsList" class="requests-list"></ul>
+            <button id="acceptRideBtn" class="cta secondary" disabled>Accept Ride</button>
+
+            <div class="driver-total glass-soft">
+              <p>Total rider fare</p>
+              <h4 id="driverTotalFare">$0.00</h4>
+            </div>
+            <div class="fare-breakdown glass-soft" id="driverFareBreakdown">
+              Qiymət detalları ride qəbul ediləndən sonra görünəcək.
+            </div>
+          </div>
+        </section>
+
+        <section class="map-wrap glass">
+          <div id="map"></div>
+          <div class="map-overlay">
+            <p id="mapHint">
+              Enter pickup and destination, then tap <strong>Find Shared Ride</strong>.
+            </p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
